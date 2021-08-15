@@ -74,7 +74,7 @@ public class MenuRequerimientos extends JFrame {
         // Agregar Contenedores y organización
         getContentPane().add(jpanel1, BorderLayout.CENTER);
         getContentPane().add(jpanel2, BorderLayout.EAST);
-        setSize(600, 250);
+        setSize(400, 250);
         // setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);
