@@ -1,0 +1,448 @@
+/*
+ * Pueda usar esta plantilla para la carga del reto a iMaster
+ * Copie las clases de los paquetes Modelo, Vista, Controlador y Util
+ * No incluya los import de los archivos .java solo las clases
+ */
+// Importaciones necesarias en iMaster
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+
+// Util (No modificar)
+class JDBCUtilities {
+    private static final String DATABASE_LOCATION = "ProyectosConstruccion.db";
+
+    public static Connection getConnection() throws SQLException {
+        String url = "jdbc:sqlite:"+DATABASE_LOCATION;
+
+        return DriverManager.getConnection(url);
+    }
+}
+
+// Remplace en adelante por las clases de sus archivos .java
+
+// Vista
+class VistaRequerimientos {
+    public static final ElControladorDeRequerimientos CONTROLADOR = new ElControladorDeRequerimientos();
+
+    public static void requerimiento1() {
+        // System.out.println("Requerimiento 1");
+        try {
+            ArrayList<Requerimiento_1> requerimiento_1 = CONTROLADOR.consultarRequerimiento1();
+            // System.out.println("Ciudad Acabados Clasificación Banco_Vinculados Constructora");
+            for (Requerimiento_1 proyecto : requerimiento_1) {
+                System.out.printf("%s %s %s %s %s %n", proyecto.getCiudad(), proyecto.getAcabado(),
+                        proyecto.getClasificacion(), proyecto.getBancoVinculado(), proyecto.getConstructora());
+            }
+        } catch (Exception e) {
+            System.err.println("Ha ocurrido un error!" + e.getMessage());
+        }
+    }
+
+    public static void requerimiento2() {
+        // System.out.println("Requerimiento 2");
+        try {
+            ArrayList<Requerimiento_2> requerimiento_2 = CONTROLADOR.consultarRequerimiento2();
+            // System.out.println("Nombre Primer_Apellido Ciudad_Residencia Cargo Salario");
+            for (Requerimiento_2 lider : requerimiento_2) {
+                System.out.printf("%s %s %s %s %d %n", lider.getNombre(), lider.getPrimerApellido(),
+                        lider.getCiudadResidencia(), lider.getCargo(), lider.getSalario());
+            }
+        } catch (Exception e) {
+            System.err.println("Ha ocurrido un error!!" + e.getMessage());
+        }
+    }
+
+    public static void requerimiento3() {
+        // System.out.println("Requerimiento 3");
+        try {
+            ArrayList<Requerimiento_3> requerimiento_3 = CONTROLADOR.consultarRequerimiento3();
+            // System.out.println("Proveedor Pagado Constructora");
+            for (Requerimiento_3 compra : requerimiento_3) {
+                System.out.printf("%s %s %s %n", compra.getProveedor(), compra.getPagado(), compra.getConstructora());
+            }
+        } catch (Exception e) {
+            System.err.println("Ha ocurrido un error!!!" + e.getMessage());
+        }
+    }
+}
+
+// Controlador
+public class ElControladorDeRequerimientos {
+    private final Requerimiento_1Dao REQUERIMIENTO_1DAO;
+    private final Requerimiento_2Dao REQUERIMIENTO_2DAO;
+    private final Requerimiento_3Dao REQUERIMIENTO_3DAO;
+
+    public ElControladorDeRequerimientos() {
+        this.REQUERIMIENTO_1DAO = new Requerimiento_1Dao();
+        this.REQUERIMIENTO_2DAO = new Requerimiento_2Dao();
+        this.REQUERIMIENTO_3DAO = new Requerimiento_3Dao();
+    }
+
+    public ArrayList<Requerimiento_1> consultarRequerimiento1() throws SQLException {
+        return this.REQUERIMIENTO_1DAO.requerimiento1();
+    }
+
+    public ArrayList<Requerimiento_2> consultarRequerimiento2() throws SQLException {
+        return this.REQUERIMIENTO_2DAO.requerimiento2();
+    }
+
+    public ArrayList<Requerimiento_3> consultarRequerimiento3() throws SQLException {
+        return this.REQUERIMIENTO_3DAO.requerimiento3();
+    }
+}
+
+// Modelo
+// VO
+class Requerimiento_1 {
+    private String ciudad;
+    private String acabado;
+    private String clasificacion;
+    private String bancoVinculado;
+    private String constructora;
+
+    public Requerimiento_1() {
+    }
+
+    public Requerimiento_1(String ciudad, String acabado, String clasificacion, String bancoVinculado,
+            String constructora) {
+        this.ciudad = ciudad;
+        this.acabado = acabado;
+        this.clasificacion = clasificacion;
+        this.bancoVinculado = bancoVinculado;
+        this.constructora = constructora;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getAcabado() {
+        return acabado;
+    }
+
+    public void setAcabado(String acabado) {
+        this.acabado = acabado;
+    }
+
+    public String getClasificacion() {
+        return clasificacion;
+    }
+
+    public void setClasificacion(String clasificacion) {
+        this.clasificacion = clasificacion;
+    }
+
+    public String getBancoVinculado() {
+        return bancoVinculado;
+    }
+
+    public void setBancoVinculado(String bancoVinculado) {
+        this.bancoVinculado = bancoVinculado;
+    }
+
+    public String getConstructora() {
+        return constructora;
+    }
+
+    public void setConstructora(String constructora) {
+        this.constructora = constructora;
+    }
+}
+
+class Requerimiento_2 {
+    private String nombre;
+    private String primerApellido;
+    private String ciudadResidencia;
+    private String cargo;
+    private Integer salario;
+
+    public Requerimiento_2() {
+    }
+
+    public Requerimiento_2(String nombre, String primerApellido, String ciudadResidencia, String cargo,
+            Integer salario) {
+        this.nombre = nombre;
+        this.primerApellido = primerApellido;
+        this.ciudadResidencia = ciudadResidencia;
+        this.cargo = cargo;
+        this.salario = salario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
+    }
+
+    public String getCiudadResidencia() {
+        return ciudadResidencia;
+    }
+
+    public void setCiudadResidencia(String ciudadResidencia) {
+        this.ciudadResidencia = ciudadResidencia;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public Integer getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Integer salario) {
+        this.salario = salario;
+    }
+}
+
+class Requerimiento_3 {
+    private String proveedor;
+    private String pagado;
+    private String constructora;
+
+    public Requerimiento_3() {
+    }
+
+    public Requerimiento_3(String proveedor, String pagado, String constructora) {
+        this.proveedor = proveedor;
+        this.pagado = pagado;
+        this.constructora = constructora;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String getPagado() {
+        return pagado;
+    }
+
+    public void setPagado(String pagado) {
+        this.pagado = pagado;
+    }
+
+    public String getConstructora() {
+        return constructora;
+    }
+
+    public void setConstructora(String constructora) {
+        this.constructora = constructora;
+    }
+}
+
+// DAO
+class Requerimiento_1Dao {
+    // Obtener los 10 proyectos rankeados según las compras
+    public ArrayList<Requerimiento_1> requerimiento1() throws SQLException {
+
+        ArrayList<Requerimiento_1> respuesta = new ArrayList<Requerimiento_1>();
+
+        Connection conexion = null;
+
+        try {
+
+            conexion = JDBCUtilities.getConnection();
+
+            String consulta = "SELECT  Ciudad, Acabados, Clasificacion, Banco_Vinculado, Constructora "+
+            "FROM Proyecto "+ 
+            "WHERE Ciudad = 'Bogota' "+
+            "LIMIT 10";
+            PreparedStatement statement = conexion.prepareStatement(consulta);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Requerimiento_1 requerimiento_1 = new Requerimiento_1();
+
+                requerimiento_1.setCiudad(resultSet.getString("Ciudad"));
+                requerimiento_1.setAcabado(resultSet.getString("Acabados"));
+                requerimiento_1.setClasificacion(resultSet.getString("Clasificacion"));
+                requerimiento_1.setBancoVinculado(resultSet.getString("Banco_Vinculado"));
+                requerimiento_1.setConstructora(resultSet.getString("Constructora"));
+                respuesta.add(requerimiento_1);
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            System.err.println("Error al hacer la consulta en requerimiento 1 " + e);
+        } finally {
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+
+        return respuesta;
+    }
+}
+
+class Requerimiento_2Dao {
+    // Obtener los 10 proyectos rankeados según las compras
+    public ArrayList<Requerimiento_2> requerimiento2() throws SQLException {
+
+        ArrayList<Requerimiento_2> respuesta = new ArrayList<Requerimiento_2>();
+
+        Connection conexion = null;
+
+        try {
+
+            conexion = JDBCUtilities.getConnection();
+
+            String consulta = "SELECT  Nombre, Primer_Apellido, Ciudad_Residencia, Cargo, Salario "+
+            "FROM Lider "+
+            "WHERE (Cargo = 'Asesor' OR Cargo='Coordinador') "+
+            "AND Salario< 250000 "+
+            "LIMIT 10";
+            PreparedStatement statement = conexion.prepareStatement(consulta);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Requerimiento_2 requerimiento_2 = new Requerimiento_2();
+
+                requerimiento_2.setNombre(resultSet.getString("Nombre"));
+                requerimiento_2.setPrimerApellido(resultSet.getString("Primer_Apellido"));
+                requerimiento_2.setCiudadResidencia(resultSet.getString("Ciudad_Residencia"));
+                requerimiento_2.setCargo(resultSet.getString("Cargo"));
+                requerimiento_2.setSalario(resultSet.getInt("Salario"));
+                respuesta.add(requerimiento_2);
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            System.err.println("Error al hacer la consulta en requerimiento 2 " + e);
+        } finally {
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+
+        return respuesta;
+    }
+}
+
+class Requerimiento_3Dao {
+    // Obtener los 10 proyectos rankeados según las compras
+    public ArrayList<Requerimiento_3> requerimiento3() throws SQLException {
+
+        ArrayList<Requerimiento_3> respuesta = new ArrayList<Requerimiento_3>();
+
+        Connection conexion = null;
+
+        try {
+
+            conexion = JDBCUtilities.getConnection();
+
+            String consulta = "SELECT  c.Proveedor, c.Pagado, p.Constructora "+
+            "FROM Compra c "+
+            "JOIN Proyecto p ON "+
+            "c.ID_Proyecto = p.ID_Proyecto "+
+            "WHERE Proveedor = 'JUMBO' "+
+            "AND Pagado = 'No' "+
+            "LIMIT 10";
+            PreparedStatement statement = conexion.prepareStatement(consulta);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Requerimiento_3 requerimiento_3 = new Requerimiento_3();
+
+                requerimiento_3.setProveedor(resultSet.getString("Proveedor"));
+                requerimiento_3.setPagado(resultSet.getString("Pagado"));
+                requerimiento_3.setConstructora(resultSet.getString("Constructora"));
+                respuesta.add(requerimiento_3);
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            System.err.println("Error al hacer la consulta en requerimiento 3 " + e);
+        } finally {
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+
+        return respuesta;
+    }
+}
+
+
+
+
+----------------------------------------------------------------------------
+ArrayList<Requerimiento_1> respuesta = new ArrayList<Requerimiento_1>();
+
+        Connection conexion = JDBCUtilities.getConnection();
+
+        try{
+
+            String consulta =   "select Ciudad, Acabados, Clasificacion ,Banco_Vinculado, Constructora  " + 
+                                "from Proyecto "+
+                                "where Ciudad ='Bogota'; ";
+                                
+            PreparedStatement statement = conexion.prepareStatement(consulta);
+            ResultSet resultSet = statement.executeQuery();
+while(resultSet.next()){
+                Requerimiento_1 requerimiento_1= new Requerimiento_1();
+
+                requerimiento_1.setCiudad(resultSet.getString("Ciudad"));                
+                requerimiento_1.setAcabados(resultSet.getString("Acabados"));
+                requerimiento_1.setClasificacion(resultSet.getString("Clasificacion"));
+                requerimiento_1.setBanco_Vinculado(resultSet.getString("Banco_Vinculado"));
+                requerimiento_1.setConstructora(resultSet.getString("Constructora"));
+
+                respuesta.add(requerimiento_1);
+            }
+            resultSet.close();
+            statement.close();
+        }catch(SQLException e){
+            System.err.println("Error consultando: "+e);
+        }finally{
+            if(conexion != null){
+                conexion.close();
+            }
+        }
+        return respuesta;
+
+
+---------------------------------
+select Nombre , Primer_Apellido,Ciudad_Residencia ,Cargo , Salario "Ingreso mensual" 
+from Lider l 
+where (Cargo = 'Asesor' OR Cargo='Coordinador')
+AND Salario <=250000 ;
+--------------------------------------------
+select c.Proveedor, c.Pagado ,   p.Constructora 
+from compra c
+inner join Proyecto p
+on c.ID_Proyecto  = p.ID_Proyecto
+where c.Pagado = 'No'
+and c.Proveedor = 'JUMBO';
