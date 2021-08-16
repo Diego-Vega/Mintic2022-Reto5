@@ -27,7 +27,7 @@ public class Requerimiento2GUI extends JFrame {
         setTitle("Vista de Requerimiento 2");
         // setDefaultCloseOperation(EXIT_ON_CLOSE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        Image icon = new ImageIcon(getClass().getResource("/img/propiedad.png")).getImage();
+        Image icon = new ImageIcon(getClass().getResource("/img/bienes-raices-icon.png")).getImage();
         setIconImage(icon);
 
         setLayout(new BorderLayout());

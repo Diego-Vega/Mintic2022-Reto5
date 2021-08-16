@@ -33,7 +33,7 @@ public class MenuRequerimientos extends JFrame {
 
         setTitle("Menu de Requerimientos");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Image icon = new ImageIcon(getClass().getResource("/img/propiedad.png")).getImage();
+        Image icon = new ImageIcon(getClass().getResource("/img/bienes-raices-icon.png")).getImage();
         setIconImage(icon);
 
         setLayout(new BorderLayout());
