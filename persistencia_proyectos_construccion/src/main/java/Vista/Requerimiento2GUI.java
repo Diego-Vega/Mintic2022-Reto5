@@ -24,7 +24,7 @@ public class Requerimiento2GUI extends JFrame {
 
     public Requerimiento2GUI(ArrayList<Requerimiento_2> consulta2, ElControladorDeRequerimientos controlador){
         
-        setTitle("Vista de Requerimiento 2");
+        setTitle("Vista de Consulta 2");
         // setDefaultCloseOperation(EXIT_ON_CLOSE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Image icon = new ImageIcon(getClass().getResource("/img/bienes-raices-icon.png")).getImage();

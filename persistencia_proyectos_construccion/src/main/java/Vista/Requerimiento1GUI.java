@@ -24,7 +24,7 @@ public class Requerimiento1GUI extends JFrame {
 
     public Requerimiento1GUI(ArrayList<Requerimiento_1> consulta1, ElControladorDeRequerimientos controlador){
         
-        setTitle("Vista de Requerimiento 1");
+        setTitle("Vista de Consulta 1");
         // setDefaultCloseOperation(EXIT_ON_CLOSE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Image icon = new ImageIcon(getClass().getResource("/img/bienes-raices-icon.png")).getImage();
