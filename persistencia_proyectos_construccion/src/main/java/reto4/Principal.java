@@ -15,10 +15,10 @@ public class Principal {
 
     public static void main(String[] args) throws SQLException {
 
-        // ElControladorDeRequerimientos controlador = new ElControladorDeRequerimientos();
-        // controlador.inicio1();
         ElControladorDeRequerimientos controlador = new ElControladorDeRequerimientos();
-        controlador.inicio2();
+        controlador.inicio1();
+        // ElControladorDeRequerimientos controlador = new ElControladorDeRequerimientos();
+        // controlador.inicio2();
 
         // Requerimiento1GUI menu = new Requerimiento1GUI();
         // System.out.println("Requerimiento 1");
